@@ -57,6 +57,7 @@
                                 <tr>
                                     <th>Product Name</th>
                                     <th>Quantity</th>
+                                    <th>Note</th>
                                     <th>Price</th>
                                     <th>Action</th>
                                 </tr>
@@ -152,6 +153,9 @@
             <td>
                 <input type="number" class="form-control quantity-input" value="${item.quantity}" data-name="${item.name}">
             </td>
+            <td>
+                <input type="text" class="form-control note-input" value="${item.note}" data-name="${item.name}">
+            </td>
             <td>${item.price}</td>
             <td>
                 <button class="btn btn-danger remove-from-cart" data-index="${index}">Remove</button>
@@ -177,7 +181,8 @@
                     cartItems.push({
                         name,
                         price,
-                        quantity: 1
+                        quantity: 1,
+                        note: ""
                     });
                 }
                 updateCart();
@@ -239,6 +244,14 @@
                     item.quantity = quantity;
                 }
                 updateCart();
+            }
+            if (event.target.classList.contains('note-input')) {
+                const name = event.target.getAttribute('data-name');
+                const note = event.target.value;
+                const item = cartItems.find(item => item.name === name);
+                if (item) {
+                    item.note = note;
+                }
             }
         });
     });

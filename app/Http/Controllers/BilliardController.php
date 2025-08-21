@@ -123,6 +123,7 @@ class BilliardController extends Controller
             'items.*.name' => 'required|string',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.price' => 'required|numeric|min:0',
+            'items.*.note' => 'nullable|string'
         ]);
         $nomor_meja = Billiard::where("id",$request->id_table)->first();
         Log::error('Nomor meja', ['response' => $nomor_meja]);
@@ -139,7 +140,8 @@ class BilliardController extends Controller
                 'product_name' => $item['name'],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
-                'metode' => "simpan"
+                'metode' => "simpan",
+                'note' => $item['note']
             ]);
         }
 
