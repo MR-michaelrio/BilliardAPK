@@ -156,24 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    // kalau sebelumnya user sudah aktifkan fullscreen, simpan state
-    if (sessionStorage.getItem("fullscreen") === "true") {
-        document.addEventListener("click", () => {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            }
-        }, { once: true });
-    }
-});
-
-// kalau status fullscreen berubah, simpan ke sessionStorage
-document.addEventListener("fullscreenchange", () => {
-    sessionStorage.setItem("fullscreen", !!document.fullscreenElement);
-});
-</script>
-
-<script>
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("{{asset('sw.js')}}")
 }
