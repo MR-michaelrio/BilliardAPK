@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body"><div class="col-12 table-responsive">
                         <table id="example3" class="table">
                             <thead>
                                 <tr>
@@ -112,7 +112,7 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                        </table>
+                        </table></div>
                     </div>
                 </div>
             </div>
