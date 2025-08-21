@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script>
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("{{asset('sw.js)}}")
+    navigator.serviceWorker.register("{{asset('sw.js')}}")
         .then(reg => console.log("Service Worker registered:", reg))
         .catch(err => console.log("SW registration failed:", err));
 }
