@@ -58,7 +58,6 @@
                                     <th>Product Name</th>
                                     <th>Quantity</th>
                                     <th>Note</th>
-                                    <th>Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -154,11 +153,10 @@
                 <input type="number" class="form-control quantity-input" value="${item.quantity}" data-name="${item.name}">
             </td>
             <td>
-                <input type="text" class="form-control note-input" value="${item.note}" data-name="${item.name}">
+                <textarea type="text" class="form-control note-input" value="${item.note}" data-name="${item.name}"></textarea>
             </td>
-            <td>${item.price}</td>
             <td>
-                <button class="btn btn-danger remove-from-cart" data-index="${index}">Remove</button>
+                <button class="btn btn-danger remove-from-cart" data-index="${index}">X</button>
             </td>
         `;
             cartItemsContainer.appendChild(row);
