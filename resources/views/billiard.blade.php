@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Socket listener
-    const socket = io("http://185.199.53.230:3001");
+    const socket = io("http://127.0.0.1:3001");
     socket.on("mejaUpdate", (data) => {
         console.log("Update meja diterima:", data);
         const cardBody = document.querySelector(`.meja[data-nomor-meja="${data.nomor_meja}"]`)?.closest('.card-body');
