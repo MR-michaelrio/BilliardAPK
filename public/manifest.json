@@ -1,5 +1,5 @@
 {
-    "name": "Wasit Play & Break",
+    "name": "Wasit Play &amp; Break",
     "short_name": "Wasit",
     "start_url": "/",
     "display": "standalone",
@@ -17,6 +17,7 @@
         "sizes": "512x512",
         "type": "image/jpg"
       }
-    ]
+    ],
+    "id": "22082025",
+    "description": "Aplikasi Wasit Billiard"
   }
-  
