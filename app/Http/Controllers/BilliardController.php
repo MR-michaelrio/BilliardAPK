@@ -156,7 +156,8 @@ class BilliardController extends Controller
             'items' => collect($request->items)->map(function ($item) {
                 return [
                     'nama' => $item['name'],
-                    'qty' => $item['quantity']
+                    'qty' => $item['quantity'],
+                    'note' => $item['note']
                 ];
             })->toArray()
         ]);
