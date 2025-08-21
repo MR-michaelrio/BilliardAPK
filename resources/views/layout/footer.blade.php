@@ -157,20 +157,17 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+    // kalau sebelumnya user sudah aktifkan fullscreen, simpan state
     if (sessionStorage.getItem("fullscreen") === "true") {
-        // aktifkan fullscreen lagi saat user klik pertama di halaman ini
-        document.addEventListener("click", enableFullscreenOnce, { once: true });
+        document.addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            }
+        }, { once: true });
     }
 });
 
-function enableFullscreenOnce() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            console.log("Fullscreen gagal:", err);
-        });
-    }
-}
-
+// kalau status fullscreen berubah, simpan ke sessionStorage
 document.addEventListener("fullscreenchange", () => {
     sessionStorage.setItem("fullscreen", !!document.fullscreenElement);
 });
