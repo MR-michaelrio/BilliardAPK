@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Socket listener
-    const socket = io("http://127.0.0.1:3001");
+    const socket = io("https://wasit.playandbreak.site", { path: "/socket.io/" });
     socket.on("mejaUpdate", (data) => {
         console.log("Update meja diterima:", data);
         const cardBody = document.querySelector(`.meja[data-nomor-meja="${data.nomor_meja}"]`)?.closest('.card-body');
