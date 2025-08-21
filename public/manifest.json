@@ -2,7 +2,7 @@
     "name": "Wasit Play &amp; Break",
     "short_name": "Wasit",
     "start_url": "/",
-    "display": "standalone",
+    "display": "fullscreen",
     "background_color": "#ffffff",
     "theme_color": "#0d6efd",
     "orientation": "portrait",
