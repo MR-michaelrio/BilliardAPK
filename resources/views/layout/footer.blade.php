@@ -106,39 +106,44 @@
   });
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-   const loadingSpinner = document.getElementById('loading');
+document.addEventListener('DOMContentLoaded', function () {
+    const loadingSpinner = document.getElementById('loading');
+    const refreshBtn = document.getElementById('refresh-btn');
+    const loadingText = document.getElementById('loading-text');
 
-   // Show loading spinner on page load
-   window.addEventListener('beforeunload', function () {
-       console.log('beforeunload: showing spinner');
-       loadingSpinner.style.display = 'flex';
-   });
+    // Show loading spinner on form submission
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function () {
+            loadingText.innerText = "Loading...";
+            refreshBtn.style.display = "none";
+            loadingSpinner.style.display = 'flex';
+        });
+    });
 
-   // Show loading spinner on form submission
-   document.querySelectorAll('form').forEach(form => {
-       form.addEventListener('submit', function () {
-           console.log('form submitted: showing spinner');
-           loadingSpinner.style.display = 'flex';
-       });
-   });
+    // Hide loading spinner after full page load
+    window.addEventListener('load', function () {
+        loadingSpinner.style.display = 'none';
+    });
 
-   // Hide loading spinner after page has loaded completely
-   window.addEventListener('load', function () {
-       console.log('page load: hiding spinner');
-       loadingSpinner.style.display = 'none';
-   });
-  });
+    // Handle AJAX requests
+    $(document).ajaxStart(function () {
+        loadingText.innerText = "Loading...";
+        refreshBtn.style.display = "none";
+        $('#loading').show();
+    }).ajaxStop(function () {
+        $('#loading').hide();
+    }).ajaxError(function () {
+        // Show error + refresh button
+        loadingText.innerText = "Terjadi error. Silakan refresh halaman.";
+        refreshBtn.style.display = "block";
+        $('#loading').show();
+    });
 
-  // For handling AJAX requests using jQuery
-  $(document).ajaxStart(function() {
-      console.log('AJAX request started: showing spinner');
-      $('#loading').show();
-  }).ajaxStop(function() {
-      console.log('AJAX request completed: hiding spinner');
-      $('#loading').hide();
-  });
-
+    // Refresh button action
+    refreshBtn.addEventListener('click', function () {
+        location.reload();
+    });
+});
 </script>
 <script>
   function showAlert(title, text, icon) {
@@ -148,13 +153,6 @@
         icon: icon,
         confirmButtonText: 'OK'
     });
-}
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("{{asset('sw.js')}}")
-        .then(reg => console.log("Service Worker registered:", reg))
-        .catch(err => console.log("SW registration failed:", err));
 }
 </script>
 
