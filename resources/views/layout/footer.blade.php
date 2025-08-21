@@ -156,6 +156,27 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 </script>
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+    if (sessionStorage.getItem("fullscreen") === "true") {
+        // aktifkan fullscreen lagi saat user klik pertama di halaman ini
+        document.addEventListener("click", enableFullscreenOnce, { once: true });
+    }
+});
+
+function enableFullscreenOnce() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log("Fullscreen gagal:", err);
+        });
+    }
+}
+
+document.addEventListener("fullscreenchange", () => {
+    sessionStorage.setItem("fullscreen", !!document.fullscreenElement);
+});
+</script>
+
+<script>
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("{{asset('sw.js')}}")
 }
