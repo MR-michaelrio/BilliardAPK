@@ -48,7 +48,7 @@
                                 style="width: 100%;">
                                 <option value='0'>0</option>
                                 @foreach($rental as $m)
-                                <option value='{{$m->id_player}}'>{{ $m->no_meja }} | {{ $m->id }}</option>
+                                <option value='{{$m->id_player}}'>{{ $m->no_meja }} | {{ $m->id_player }}</option>
                                 @endforeach
                             </select>
                         </div>
