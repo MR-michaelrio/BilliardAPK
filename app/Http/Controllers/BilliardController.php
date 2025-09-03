@@ -125,7 +125,7 @@ class BilliardController extends Controller
             'items.*.price' => 'required|numeric|min:0',
             'items.*.note' => 'nullable|string'
         ]);
-        $nomor_meja = Billiard::where("id",$request->id_table)->first();
+        $nomor_meja = Billiard::where("id_player",$request->id_table)->first();
         Log::error('Nomor meja', ['response' => $nomor_meja]);
 
         // Buat order di database
