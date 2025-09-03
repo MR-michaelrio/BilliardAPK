@@ -126,7 +126,7 @@ class BilliardController extends Controller
             'items.*.note' => 'nullable|string'
         ]);
         $nomor_meja = Billiard::where("id_player",$request->id_table)->first();
-        Log::error('Nomor meja', ['response' => $nomor_meja]);
+        Log::info('Nomor meja12', ['response' => $nomor_meja]);
 
         // Buat order di database
         $order = Order::create([
