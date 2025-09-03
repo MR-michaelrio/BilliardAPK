@@ -44,9 +44,9 @@ class BilliardController extends Controller
         $rental = Billiard::where('no_meja', $no_meja)->count();
         
         if ($meja_rental) {
-            $makanan = Order::where('id_player', $meja_rental->id_player)
+            $makanan = Order::where('id_table', $meja_rental->id_player)
                             ->where('status', 'belum')
-                            ->get();
+                            ->with('items')->get();
 
             $idplayer = substr($meja_rental->id_player, 0, 1);
 
