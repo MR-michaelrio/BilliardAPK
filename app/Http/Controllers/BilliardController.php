@@ -19,23 +19,39 @@ use Illuminate\Support\Facades\Http;
 class BilliardController extends Controller
 {
     //
-    public function meja()
-    {
-        $meja = Meja::all();
-        $rental = Billiard::all();
-    
-        $meja_rental = $meja->map(function($m) use ($rental) {
-            $invoice = $rental->firstWhere('no_meja', $m->nomor);
-            return [
-                'nomor_meja' => $m->nomor,
-                'waktu_mulai'=> $invoice && $invoice->waktu_mulai ? $invoice->waktu_mulai->format('Y-m-d H:i:s') : null,
-                'waktu_akhir' => $invoice && $invoice->waktu_akhir ? $invoice->waktu_akhir->format('Y-m-d H:i:s') : null,
-                'status' => $invoice ? $invoice->status : null // Tambahkan status
-            ];
-        });
-    
-        return view('billiard', compact('meja_rental'));
-    }
+ // Controller: MejaController.php
+public function meja()
+{
+    $meja = Meja::all();
+    $rental = Billiard::all();
+
+    $meja_rental = $meja->map(function($m) use ($rental) {
+
+        // Semua rental untuk meja ini yang bukan 'selesai', urut terbaru
+        $activeRentals = $rental->where('no_meja', $m->nomor)
+                                ->whereNotIn('status', ['selesai'])
+                                ->sortByDesc('updated_at');
+
+        // Pilih berdasarkan prioritas
+        $selectedRental = $activeRentals->firstWhere('status', 'tambahan') ??
+                          $activeRentals->firstWhere('status', 'tambahlanjut') ??
+                          $activeRentals->firstWhere('status', 'lanjut') ??
+                          $activeRentals->firstWhere('status', 'baru') ??
+                          null;
+
+        return [
+            'nomor_meja' => $m->nomor,
+            'waktu_mulai' => $selectedRental?->waktu_mulai?->format('Y-m-d H:i:s'),
+            'waktu_akhir'=> $selectedRental?->waktu_akhir?->format('Y-m-d H:i:s'),
+            'status' => $selectedRental?->status ?? null,
+            'id_rental' => $selectedRental?->id,
+            'lama_waktu_hitung' => $selectedRental?->lama_waktu,
+        ];
+    });
+    // dd($meja_rental);
+    return view('billiard', compact('meja_rental'));
+}
+
 
     public function list($no_meja)
     {
