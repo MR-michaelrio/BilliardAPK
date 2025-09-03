@@ -75,8 +75,19 @@
                                                 data-nomor-meja="{{ $mi['nomor_meja'] }}">
                                                     Meja {{ $mi['nomor_meja'] }}
                                             </div>
-                                            <div class="{{ $mi['status'] === 'lanjut' ? 'stopwatch' : 'countdown' }}" data-status="{{ $mi['status'] }}">
-                                                {{ $mi['status'] === 'lanjut' ? '00:00:00' : ($mi['waktu_akhir'] ?? 'N/A') }}
+                                            <div class="{{ in_array($mi['status'], ['lanjut','tambahanlanjut']) ? 'stopwatch' : 'countdown' }}" 
+                                                 data-status="{{ $mi['status'] ?? 'kosong' }}">
+                                                @if($mi['status'] === 'lanjut' || $mi['status'] === 'tambahanlanjut')
+                                                    00:00:00
+                                                @elseif($mi['status'] === 'tambahan')
+                                                    {{ $mi['waktu_akhir'] ?? 'N/A' }}
+                                                @elseif($mi['status'] === 'selesai')
+                                                    00:00:00
+                                                @elseif(empty($mi['status']) || $mi['status'] === 'kosong')
+                                                    {{ $mi['waktu_akhir'] ?? 'N/A' }}
+                                                @else
+                                                    N/A
+                                                @endif
                                             </div>
                                         </div>
                                     </a>
